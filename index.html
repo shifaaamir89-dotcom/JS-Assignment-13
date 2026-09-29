@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src ="script.js"></script>
+
+</head>
+<body>
+     <h2>Question 1</h2>
+
+    <h3>Signup Form</h3>
+
+    <form id="signupForm">
+
+        <label>Name:</label>
+        <input type="text" id="name" required>
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" id="email" required>
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password" required>
+        <br><br>
+
+        <label>Age:</label>
+        <input type="number" id="age" required>
+        <br><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <h3>Form Data</h3>
+
+    <p id="result"></p>
+
+    <script>
+
+        document.getElementById("signupForm").onsubmit = function(event) {
+
+            event.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var age = document.getElementById("age").value;
+
+            document.getElementById("result").innerHTML =
+                "Name: " + name + "<br>" +
+                "Email: " + email + "<br>" +
+                "Password: " + password + "<br>" +
+                "Age: " + age;
+
+        };
+
+    </script>
+
+    <h2>Question 2</h2>
+
+    <h3>Mobile Phone</h3>
+
+    <p>
+        Samsung Galaxy S24 is a modern smartphone.
+        <span id="moreText" style="display: none;">
+            It has a good camera, powerful processor,
+            long battery life and a beautiful display.
+        </span>
+    </p>
+
+    <button onclick="readMore()" id="readBtn">Read more</button>
+
+    <script>
+
+        function readMore() {
+
+            var text = document.getElementById("moreText");
+            var button = document.getElementById("readBtn");
+
+            if (text.style.display == "none") {
+
+                text.style.display = "inline";
+                button.innerHTML = "Read less";
+
+            } else {
+
+                text.style.display = "none";
+                button.innerHTML = "Read more";
+
+            }
+
+        }
+
+    </script>
+
+<h2>Question 3</h2>
+
+    <h3>Student Form</h3>
+
+    <form id="studentForm">
+
+        <label>Student Name:</label>
+        <input type="text" id="name" required>
+        <br><br>
+
+        <label>Father Name:</label>
+        <input type="text" id="fatherName" required>
+        <br><br>
+
+        <label>Class:</label>
+        <input type="text" id="className" required>
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" id="email" required>
+        <br><br>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <br>
+
+    <h3>Student Details</h3>
+
+    <table border="1" cellpadding="10" id="studentTable">
+
+        <tr>
+            <th>Student Name</th>
+            <th>Father Name</th>
+            <th>Class</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+
+    </table>
+
+
+    <!-- Hidden Edit Form -->
+
+    <div id="editForm" style="display: none;">
+
+        <h3>Edit Student</h3>
+
+        <input type="hidden" id="editRow">
+
+        <label>Student Name:</label>
+        <input type="text" id="editName">
+        <br><br>
+
+        <label>Father Name:</label>
+        <input type="text" id="editFatherName">
+        <br><br>
+
+        <label>Class:</label>
+        <input type="text" id="editClass">
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" id="editEmail">
+        <br><br>
+
+        <button onclick="updateStudent()">Update Student</button>
+
+    </div>
+
+
+    <script>
+
+        document.getElementById("studentForm").onsubmit = function(event) {
+
+            event.preventDefault();
+
+            var name = document.getElementById("name").value;
+            var fatherName = document.getElementById("fatherName").value;
+            var className = document.getElementById("className").value;
+            var email = document.getElementById("email").value;
+
+            var table = document.getElementById("studentTable");
+
+            var row = table.insertRow();
+
+            row.insertCell(0).innerHTML = name;
+            row.insertCell(1).innerHTML = fatherName;
+            row.insertCell(2).innerHTML = className;
+            row.insertCell(3).innerHTML = email;
+
+            row.insertCell(4).innerHTML =
+                '<button onclick="editStudent(this)">Edit</button> ' +
+                '<button onclick="deleteStudent(this)">Delete</button>';
+
+            document.getElementById("studentForm").reset();
+
+        };
+
+
+        function deleteStudent(button) {
+
+            var row = button.parentNode.parentNode;
+
+            row.remove();
+
+        }
+
+
+        function editStudent(button) {
+
+            var row = button.parentNode.parentNode;
+
+            document.getElementById("editForm").style.display = "block";
+
+            document.getElementById("editRow").value = row.rowIndex;
+
+            document.getElementById("editName").value = row.cells[0].innerHTML;
+            document.getElementById("editFatherName").value = row.cells[1].innerHTML;
+            document.getElementById("editClass").value = row.cells[2].innerHTML;
+            document.getElementById("editEmail").value = row.cells[3].innerHTML;
+
+        }
+
+
+        function updateStudent() {
+
+            var rowNumber = document.getElementById("editRow").value;
+
+            var table = document.getElementById("studentTable");
+
+            var row = table.rows[rowNumber];
+
+            row.cells[0].innerHTML =
+                document.getElementById("editName").value;
+
+            row.cells[1].innerHTML =
+                document.getElementById("editFatherName").value;
+
+            row.cells[2].innerHTML =
+                document.getElementById("editClass").value;
+
+            row.cells[3].innerHTML =
+                document.getElementById("editEmail").value;
+
+            document.getElementById("editForm").style.display = "none";
+
+        }
+
+    </script>
+
+
+
+    
+</body>
+</html>
